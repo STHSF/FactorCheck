@@ -27,4 +27,8 @@ class SqlEngine(object):
         return dest_session()
 
     def fetch_data(self, table_name):
-        return pd.read_sql(table_name, self.con)
+        df_list = []
+        for chunk in pd.read_sql(table_name, self.con, chunksize=1000000):
+            df_list.append(chunk)
+        res = pd.concat(df_list, ignore_index=True)
+        return res
