@@ -128,3 +128,4 @@ dmypy.json
 .idea
 .gitignore
 src/config.py
+!/src/factor_check/data.db
