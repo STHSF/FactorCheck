@@ -7,6 +7,10 @@
 @file: exposure.py
 @time: 2019/11/7 10:38 上午
 """
+import sys
+sys.path.append('../')
+sys.path.append('../../')
+sys.path.append('../../../')
 import pdb
 import pandas as pd
 from src.engine import sqlengine
