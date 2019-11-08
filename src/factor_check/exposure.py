@@ -17,7 +17,7 @@ from src.engine import sqlengine
 from joblib import Parallel, delayed
 from src import config
 import multiprocessing
-
+import sqlite3
 
 class Exposure(object):
 
@@ -59,3 +59,6 @@ if __name__ == '__main__':
     exposure = Exposure(table_name=tb)
     result = exposure.calculate()
     print(result)
+    import sqlite3 as lite
+    with lite.connect('./data.db') as db:
+        result.to_sql(name='factor_earning', con=db, if_exists='replace', index=None)
