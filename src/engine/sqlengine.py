@@ -28,7 +28,7 @@ class SqlEngine(object):
 
     def fetch_data(self, table_name):
         df_list = []
-        for chunk in pd.read_sql(table_name, self.engine, chunksize=1000000):
+        for chunk in pd.read_sql(table_name, self.engine, chunksize=100000):
             df_list.append(chunk)
         df_data = pd.concat(df_list, ignore_index=True)
         return df_data
