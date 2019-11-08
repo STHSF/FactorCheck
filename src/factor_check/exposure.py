@@ -15,6 +15,7 @@ import pandas as pd
 from src.engine import sqlengine
 from joblib import Parallel, delayed
 from src import config
+from src.utills import log_util
 import multiprocessing
 import sqlite3 as lite
 
@@ -55,9 +56,18 @@ class Exposure(object):
 
 
 if __name__ == '__main__':
-    tb = 'factor_earning'
+    log = log_util.Logger('exposure', level='info')
+    tb_list = ['factor_earning', 'factor_cash_flow', 'factor_capital_structure', 'factor_historical_growth',
+               'factor_operation_capacity', 'factor_per_share_indicators', 'factor_revenue_quality', 'factor_solvency',
+               'factor_basic_derivation', 'factor_earning_expectation']
+    tb = tb_list[1]
+
+    log.logger.info('exposure of {}'.format(tb))
     exposure = Exposure(table_name=tb)
     result = exposure.calculate()
-    print(result.reset_index())
+    log.logger.info('len of result: {}'.format(len(result)))
+    log.logger.info(result.reset_index())
     with lite.connect('./data.db') as db:
-        result.reset_index().to_sql(name='factor_earning', con=db, if_exists='replace', index=None)
+        result.reset_index().to_sql(name=tb, con=db, if_exists='replace', index=None)
+    log.logger.info('calculate finish')
+    log.logger.info('==============================================================')

@@ -129,3 +129,4 @@ dmypy.json
 .gitignore
 src/config.py
 /src/factor_check/data.db
+/src/log/
