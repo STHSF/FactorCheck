@@ -19,6 +19,8 @@ from src.utills import log_util
 import multiprocessing
 import sqlite3 as lite
 
+log = log_util.Logger('exposure', level='info')
+
 
 class Exposure(object):
 
@@ -30,6 +32,7 @@ class Exposure(object):
                                                                                  config.rl_db_database)
         self.engine = sqlengine.SqlEngine(destination_db)
         self.factor_data: pd.DataFrame() = self.engine.fetch_data(table_name)
+        log.logger.info((len(self.factor_data)))
         print(len(self.factor_data))
         # self.factor_data = pd.DataFrame({'trade_date': [1, 1, 2, 2, 2, 3, 3, 4],
         #                                  'b': [2, 3, None, 5, None, None, 7, 8],
@@ -56,7 +59,6 @@ class Exposure(object):
 
 
 if __name__ == '__main__':
-    log = log_util.Logger('exposure', level='info')
     tb_list = ['factor_earning', 'factor_cash_flow', 'factor_capital_structure', 'factor_historical_growth',
                'factor_operation_capacity', 'factor_per_share_indicators', 'factor_revenue_quality', 'factor_solvency',
                'factor_basic_derivation', 'factor_earning_expectation']
