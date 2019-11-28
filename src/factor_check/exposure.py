@@ -31,9 +31,8 @@ class Exposure(object):
                                                                                  config.rl_db_port,
                                                                                  config.rl_db_database)
         self.engine = sqlengine.SqlEngine(destination_db)
-        self.factor_data: pd.DataFrame() = self.engine.fetch_data(table_name)
-        log.logger.info((len(self.factor_data)))
-        print(len(self.factor_data))
+        self.factor_data: pd.DataFrame() = self.engine.fetch_all_data(table_name)
+        log.logger.info('len_factor_data: {}'.format(len(self.factor_data)))
         # self.factor_data = pd.DataFrame({'trade_date': [1, 1, 2, 2, 2, 3, 3, 4],
         #                                  'b': [2, 3, None, 5, None, None, 7, 8],
         #                                  'c': [None, 2, 3, 4, 5, 6, 7, 8]})
